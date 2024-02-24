@@ -28,3 +28,45 @@ mapArray(array);
 4. Divide each number and then push to new array 
 5. Return new array value 
 */
+
+//SOLUTION***********************************************************************
+
+const nums = [1, 2, 3, 4, 5];
+
+function products(nums) {
+
+  //Generate prefix products (the numbers before i)
+  let prefix_products = [];
+  for (let num of nums) {
+      if (prefix_products.length > 0) {
+          prefix_products.push(prefix_products[prefix_products.length - 1] * num);
+      } else {
+          prefix_products.push(num);
+      }
+  }
+
+  //Generate suffix products (the numbers after i)
+  let suffix_products = [];
+  for (let num of nums.reverse()) {
+      if (suffix_products.length > 0) {
+          suffix_products.push(suffix_products[suffix_products.length - 1] * num);
+      } else {
+          suffix_products.push(num);
+      }
+  }
+  suffix_products = suffix_products.reverse();
+
+  //Generate result 
+  let result = [];
+  for (let i = 0; i < nums.length; i++) {
+      if (i === 0) {
+          result.push(suffix_products[i + 1]);
+      } else if (i === nums.length - 1) {
+          result.push(prefix_products[i - 1]);
+      } else {
+          result.push(prefix_products[i - 1] * suffix_products[i + 1]);
+      }
+  }
+  return result;
+}
+
