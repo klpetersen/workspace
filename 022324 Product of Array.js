@@ -70,3 +70,34 @@ function products(nums) {
   return result;
 }
 
+
+//CHATGPT Solution
+
+function productExceptSelf(nums) {
+  const n = nums.length;
+  const leftProducts = new Array(n).fill(1);
+  const rightProducts = new Array(n).fill(1);
+  const result = new Array(n).fill(1);
+  
+  // Calculate the products of elements to the left of each element
+  for (let i = 1; i < n; i++) {
+      leftProducts[i] = leftProducts[i - 1] * nums[i - 1];
+  }
+  
+  // Calculate the products of elements to the right of each element
+  for (let i = n - 2; i >= 0; i--) {
+      rightProducts[i] = rightProducts[i + 1] * nums[i + 1];
+  }
+  
+  // Multiply the left and right products to get the result
+  for (let i = 0; i < n; i++) {
+      result[i] = leftProducts[i] * rightProducts[i];
+  }
+  
+  return result;
+}
+
+// Example usage:
+console.log(productExceptSelf([1, 2, 3, 4, 5]));  // Output: [120, 60, 40, 30, 24]
+console.log(productExceptSelf([3, 2, 1]));        // Output: [2, 3, 6]
+
